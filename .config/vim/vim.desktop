@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Vim
+Exec=/usr/bin/myvim %F
+Type=Application
+Terminal=true
+MimeType=text/plain;
