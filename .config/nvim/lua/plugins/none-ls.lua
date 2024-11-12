@@ -1,4 +1,6 @@
+-- Formatter
 -- https://github.com/nvimtools/none-ls.nvim
+-- Press '=' to format highlighted code
 return {
   "nvimtools/none-ls.nvim",
   config = function()

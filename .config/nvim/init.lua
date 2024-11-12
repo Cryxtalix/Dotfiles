@@ -15,6 +15,18 @@ vim.opt.wildmenu = true
 vim.cmd("filetype plugin on")
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 
+-- Neovim builtin autocompletion
+--vim.api.nvim_create_autocmd({ "VimEnter" }, {
+--  callback = function()
+--    local clients = vim.lsp.get_clients()
+--    for _, client in ipairs(clients) do
+--      local id = client.id
+--      vim.lsp.completion.enable(true, id, 1, { autotrigger = true })
+--      return
+--    end
+--  end
+--})
+
 -- Install Lazy.vim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
