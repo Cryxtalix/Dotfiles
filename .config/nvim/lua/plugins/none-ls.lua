@@ -8,7 +8,7 @@ return {
     null_ls.setup({
       sources = {
         -- Formatting
-        -- null_ls.builtins.formatting.<package>,
+        null_ls.builtins.formatting.black,
         --
         -- Diagnostics
         -- null_ls.builtins.diagnostics.<package>,
