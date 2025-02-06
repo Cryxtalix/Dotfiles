@@ -1,5 +1,5 @@
-local indent_size = 2
-local use_tabs = false
+local indent_size = 8
+local use_tabs = true
 
 local settings = string.format("setlocal softtabstop=%s tabstop=%s shiftwidth=%s", indent_size, indent_size, indent_size)
 
@@ -10,5 +10,3 @@ else
 end
 
 vim.cmd(settings)
-
--- Check http://vimcasts.org/episodes/tabs-and-spaces/ for more info on tabs and spaces

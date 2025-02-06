@@ -34,6 +34,7 @@ alias ls="ls -F --color";
 alias ll="ls -AlF --color";
 alias la="ls -AF --color";
 alias c="clear";
+alias x="exit";
 alias v="nvim";
 alias nv-watch="watch -n1 nvidia-smi";
 

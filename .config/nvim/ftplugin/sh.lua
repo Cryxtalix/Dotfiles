@@ -10,5 +10,3 @@ else
 end
 
 vim.cmd(settings)
-
--- Check http://vimcasts.org/episodes/tabs-and-spaces/ for more info on tabs and spaces

@@ -41,7 +41,7 @@ return {
         capabilities = capabilities
       })
       lspconfig.rust_analyzer.setup({
-        capabilities = capabilities
+        capabilities = capabilities,
       })
 
       -- Key mapping
