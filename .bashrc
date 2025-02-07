@@ -25,11 +25,14 @@ fi
 unset rc
 
 # Personal
+PS1='\[\e[1m\][ \[\e[96m\]\w \[\e[39m\]]\\$ \[\e[0m\]'
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
+shopt -s checkwinsize
 export HISTFILESIZE=1000
 export HISTSIZE=500
 export VISUAL=nvim
 export EDITOR="$VISUAL" 
-export PS1='\[\e[1m\][ \[\e[96m\]\w \[\e[39m\]]\\$ \[\e[0m\]'
 alias ls="ls -F --color";
 alias ll="ls -AlF --color";
 alias la="ls -AF --color";
