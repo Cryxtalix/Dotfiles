@@ -11,6 +11,11 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
+# Rust
+if [ -d "$HOME/.cargo" ]; then
+    . "$HOME/.cargo/env"
+fi
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
@@ -40,6 +45,3 @@ alias c="clear";
 alias x="exit";
 alias v="nvim";
 alias nv-watch="watch -n1 nvidia-smi";
-
-# Rust
-. "$HOME/.cargo/env";
