@@ -12,13 +12,13 @@ return {
   },
 
   {
-      "williamboman/mason-lspconfig.nvim",
-      config = function()
-        require("mason-lspconfig").setup {
-          ensure_installed = { "bashls", "lua_ls", "clangd", "marksman", "pyright", "rust_analyzer" },
-          automatic_installation = true,
-        }
-      end
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("mason-lspconfig").setup {
+        ensure_installed = { "bashls", "lua_ls", "clangd", "marksman", "pyright", "rust_analyzer" },
+        automatic_installation = true,
+      }
+    end
   },
 
   {
@@ -44,6 +44,27 @@ return {
       })
       lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
+        settings = {
+          ['rust-analyzer'] = {
+            assist = {
+              importEnforceGranularity = true,
+              importPrefix = 'crate',
+            },
+            cargo = {
+              allFeatures = true,
+            },
+            checkOnSave = {
+              command = 'clippy',
+            },
+            inlayHints = { locationLinks = false },
+            diagnostics = {
+              enable = true,
+              experimental = {
+                enable = true,
+              },
+            },
+          },
+        },
       })
 
       -- Key mapping

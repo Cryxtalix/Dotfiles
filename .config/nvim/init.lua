@@ -27,6 +27,23 @@ vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 --  end
 --})
 
+vim.diagnostic.config({
+  virtual_text = false,  -- Disable inline text diagnostics
+  signs = true,          -- Keep signs in the sign column
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+})
+
+-- Show diagnostics on hover
+vim.o.updatetime = 250 -- Faster update time for hover
+vim.api.nvim_create_autocmd("CursorHold", {
+  pattern = "*",
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+  end,
+})
+
 -- Install Lazy.vim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

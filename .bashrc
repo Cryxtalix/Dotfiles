@@ -12,9 +12,9 @@ fi
 export PATH
 
 # Rust
-if [ -d "$HOME/.cargo" ]; then
-    . "$HOME/.cargo/env"
-fi
+#if [ -d "$HOME/.cargo" ]; then
+#    . "$HOME/.cargo/env"
+#fi
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -34,8 +34,8 @@ PS1='\[\e[1m\][ \[\e[96m\]\w \[\e[39m\]]\\$ \[\e[0m\]'
 HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 shopt -s checkwinsize
-export HISTFILESIZE=1000
-export HISTSIZE=500
+export HISTFILESIZE=10000
+export HISTSIZE=50
 export VISUAL=nvim
 export EDITOR="$VISUAL" 
 alias ls="ls -F --color";
