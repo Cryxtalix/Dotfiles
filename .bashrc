@@ -43,5 +43,7 @@ alias ll="ls -AlF --color";
 alias la="ls -AF --color";
 alias c="clear";
 alias x="exit";
+alias t="tmux";
 alias v="nvim";
+alias vro="nvim -RM" # Neovim read-only
 alias nv-watch="watch -n1 nvidia-smi";

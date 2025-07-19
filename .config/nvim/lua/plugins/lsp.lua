@@ -42,30 +42,6 @@ return {
       lspconfig.pyright.setup({
         capabilities = capabilities
       })
-      lspconfig.rust_analyzer.setup({
-        capabilities = capabilities,
-        settings = {
-          ['rust-analyzer'] = {
-            assist = {
-              importEnforceGranularity = true,
-              importPrefix = 'crate',
-            },
-            cargo = {
-              allFeatures = true,
-            },
-            checkOnSave = {
-              command = 'clippy',
-            },
-            inlayHints = { locationLinks = false },
-            diagnostics = {
-              enable = true,
-              experimental = {
-                enable = true,
-              },
-            },
-          },
-        },
-      })
 
       -- Key mapping
       -- Hover for definition
