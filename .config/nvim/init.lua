@@ -17,6 +17,30 @@ vim.opt.wildmenu = true
 vim.cmd("filetype plugin on")
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 
+-- Working tabs and windows
+--vim.keymap.set('n', '<leader>f', '<cmd>Neotree<CR>', { desc = 'Open Neotree' })
+--vim.keymap.set("n", '<leader>c',function()
+--  vim.cmd("Tex")
+--  vim.cmd("wincmd r")
+--end, { desc = "Open tab"})
+--vim.keymap.set("n", '<leader>v', function()
+--  vim.cmd("Vex")
+--  vim.cmd("wincmd x")
+--  vim.cmd("wincmd l")
+--  vim.cmd("enew")
+--end, { desc = "Open vertical split" })
+--vim.keymap.set("n", '<leader>h', function()
+--  vim.cmd("Sex")
+--  vim.cmd("wincmd x")
+--  vim.cmd("wincmd j")
+--end, { desc = "Open horizontal split" })
+--vim.keymap.set('n', '<C-l>', '<cmd>tabnext +<CR>', { desc = 'Switch next tab' })
+--vim.keymap.set('n', '<C-h>', '<cmd>tabnext -<CR>', { desc = 'Switch prev tab' })
+--vim.keymap.set('n', '<A-k>', '<cmd>wincmd k<CR>', { desc = 'Move cursor to window above' })
+--vim.keymap.set('n', '<A-j>', '<cmd>wincmd j<CR>', { desc = 'Move cursor to window below' })
+--vim.keymap.set('n', '<A-h>', '<cmd>wincmd h<CR>', { desc = 'Move cursor to window left' })
+--vim.keymap.set('n', '<A-l>', '<cmd>wincmd l<CR>', { desc = 'Move cursor to window right' })
+
 vim.diagnostic.config({
   virtual_text = false,  -- Disable inline text diagnostics
   signs = true,          -- Keep signs in the sign column
@@ -47,5 +71,31 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
+
+-- Rename Tmux Window to File Opened by Neovim
+-- https://github.com/Dyslectric/neovim-tmux-window-rename
+if vim.env.TMUX ~= nil then
+  -- Define an autocommand for BufEnter and FocusGained events
+  vim.api.nvim_create_autocmd({"BufEnter", "FocusGained"}, {
+    pattern = "*",
+    callback = function()
+      local file_name = vim.fn.expand("%:t")
+      local folder_name = vim.fn.expand("%:p:h:t")
+      local tmux_command = string.format(
+        "tmux rename-window 'Nv:%s/%s'", folder_name, file_name
+      )
+      vim.fn.system(tmux_command)
+    end
+  })
+
+  -- Define an autocommand for the VimLeave event
+  vim.api.nvim_create_autocmd("VimLeave", {
+    pattern = "*",
+    callback = function()
+      local shell = vim.env.SHELL or "sh"
+      vim.fn.system("tmux set-window-option automatic-rename on")
+    end
+  })
+end
 
 require("lazy").setup("plugins")
