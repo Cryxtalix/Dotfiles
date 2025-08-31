@@ -15,7 +15,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup {
-        ensure_installed = { "bashls", "lua_ls", "clangd", "marksman", "pyright", "rust_analyzer" },
+        ensure_installed = { "bashls", "lua_ls", "clangd", "marksman", "pyright", "rust_analyzer", "lemminx" },
         automatic_installation = true,
       }
     end
