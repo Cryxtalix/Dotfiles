@@ -14,6 +14,7 @@ return {
         server = {
           default_settings = {
             -- rust-analyzer language server configuration
+            -- https://rust-analyzer.github.io/book/configuration.html
             ['rust-analyzer'] = {
               checkOnSave = true,
               check = {
@@ -25,7 +26,24 @@ return {
                 autoimport = {
                   enable = false;
                 }
+              },
+              files = {
+                exclude = {
+                  "build-dir/",
+                  ".flatpak-builder",
+                }
               }
+              --settings = {
+              --  cargo = { allFeatures = true },
+              --  imports = { group = { enable = false } },
+              --  completion = { postfix = { enable = false } },
+              --  -- https://www.reddit.com/r/rust/comments/1e978l7/comment/led7ibp/
+              --  -- checkOnSave = { command = "clippy" },
+              --  checkOnSave = { command = false },
+
+              --  diagnostics = { enable = true },
+              --  rustfmt = { enable = true },
+              --}
             },
           },
         },

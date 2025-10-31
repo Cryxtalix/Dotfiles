@@ -3,6 +3,10 @@
 -- Goto definition with :Goto
 -- Open code action with :Codeact
 
+local servers = {
+  "lua_ls", "bashls", "clangd", "marksman", "pyright", "lemminx",
+}
+
 return {
   {
     "williamboman/mason.nvim",
@@ -15,7 +19,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup {
-        ensure_installed = { "bashls", "lua_ls", "clangd", "marksman", "pyright", "rust_analyzer", "lemminx" },
+        ensure_installed = servers,
         automatic_installation = true,
       }
     end
@@ -27,21 +31,11 @@ return {
       -- Advertise autocompletion to lsp
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local lspconfig = require("lspconfig")
-      lspconfig.bashls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities
-      })
-      lspconfig.clangd.setup({
-        capabilities = capabilities
-      })
-      lspconfig.marksman.setup({
-        capabilities = capabilities
-      })
-      lspconfig.pyright.setup({
-        capabilities = capabilities
-      })
+      for _, server in ipairs(servers) do
+        lspconfig[server].setup {
+          capabilities = capabilities,
+        }
+      end
 
       -- Key mapping
       -- Hover for definition

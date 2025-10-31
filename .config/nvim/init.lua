@@ -1,4 +1,6 @@
--- Basic
+-----------
+-- Basic --
+-----------
 vim.g.mapleader = " "
 vim.opt.mouse = ''
 vim.opt.wrap = true
@@ -17,30 +19,53 @@ vim.opt.wildmenu = true
 vim.cmd("filetype plugin on")
 vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 
--- Working tabs and windows
---vim.keymap.set('n', '<leader>f', '<cmd>Neotree<CR>', { desc = 'Open Neotree' })
---vim.keymap.set("n", '<leader>c',function()
---  vim.cmd("Tex")
---  vim.cmd("wincmd r")
---end, { desc = "Open tab"})
---vim.keymap.set("n", '<leader>v', function()
---  vim.cmd("Vex")
---  vim.cmd("wincmd x")
---  vim.cmd("wincmd l")
---  vim.cmd("enew")
---end, { desc = "Open vertical split" })
---vim.keymap.set("n", '<leader>h', function()
---  vim.cmd("Sex")
---  vim.cmd("wincmd x")
---  vim.cmd("wincmd j")
---end, { desc = "Open horizontal split" })
---vim.keymap.set('n', '<C-l>', '<cmd>tabnext +<CR>', { desc = 'Switch next tab' })
---vim.keymap.set('n', '<C-h>', '<cmd>tabnext -<CR>', { desc = 'Switch prev tab' })
---vim.keymap.set('n', '<A-k>', '<cmd>wincmd k<CR>', { desc = 'Move cursor to window above' })
---vim.keymap.set('n', '<A-j>', '<cmd>wincmd j<CR>', { desc = 'Move cursor to window below' })
---vim.keymap.set('n', '<A-h>', '<cmd>wincmd h<CR>', { desc = 'Move cursor to window left' })
---vim.keymap.set('n', '<A-l>', '<cmd>wincmd l<CR>', { desc = 'Move cursor to window right' })
+------------------------------------
+-- Native Neovim tabs and windows --
+------------------------------------
+vim.keymap.set('n', '<leader>f', '<cmd>Neotree<CR>', { desc = 'Open Neotree' })
+vim.keymap.set("n", '<leader>c',function()
+  vim.cmd("Tex")
+  vim.cmd("wincmd r")
+end, { desc = "Open tab"})
+vim.keymap.set("n", '<leader>v', function()
+  vim.cmd("Vex")
+  vim.cmd("wincmd x")
+  vim.cmd("wincmd l")
+  vim.cmd("enew")
+end, { desc = "Open vertical split" })
+vim.keymap.set("n", '<leader>h', function()
+  vim.cmd("Sex")
+  vim.cmd("wincmd x")
+  vim.cmd("wincmd j")
+end, { desc = "Open horizontal split" })
+-- Open terminal
+local term_buf = nil
+vim.keymap.set('n', '<leader>t', function()
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    -- Reuse existing terminal
+    vim.cmd('rightbelow vsplit')
+    vim.cmd('buffer ' .. term_buf)
+  else
+    -- Create a new terminal
+    vim.cmd('rightbelow vsplit | terminal')
+    term_buf = vim.api.nvim_get_current_buf()
+  end
+  vim.cmd('startinsert')
+end, { desc = 'Open terminal in vertical split' })
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
+vim.keymap.set('n', '<C-l>', '<cmd>tabnext +<CR>', { desc = 'Switch next tab' })
+vim.keymap.set('n', '<C-h>', '<cmd>tabnext -<CR>', { desc = 'Switch prev tab' })
+vim.keymap.set('n', '<C-A-h>', '<cmd>tabmove -1<CR>', { desc = 'Move current tab left' })
+vim.keymap.set('n', '<C-A-l>', '<cmd>tabmove +1<CR>', { desc = 'Move current tab right' })
+vim.keymap.set('n', '<A-k>', '<cmd>wincmd k<CR>', { desc = 'Move cursor to window above' })
+vim.keymap.set('n', '<A-j>', '<cmd>wincmd j<CR>', { desc = 'Move cursor to window below' })
+vim.keymap.set('n', '<A-h>', '<cmd>wincmd h<CR>', { desc = 'Move cursor to window left' })
+vim.keymap.set('n', '<A-l>', '<cmd>wincmd l<CR>', { desc = 'Move cursor to window right' })
+--------------------------------------------
 
+-----------------
+-- Diagnostics --
+-----------------
 vim.diagnostic.config({
   virtual_text = false,  -- Disable inline text diagnostics
   signs = true,          -- Keep signs in the sign column
@@ -58,7 +83,9 @@ vim.api.nvim_create_autocmd("CursorHold", {
   end,
 })
 
--- Install Lazy.vim
+--------------
+-- Lazy.vim --
+--------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
