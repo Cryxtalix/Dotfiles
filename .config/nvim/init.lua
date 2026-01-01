@@ -22,7 +22,7 @@ vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
 ------------------------------------
 -- Native Neovim tabs and windows --
 ------------------------------------
-vim.keymap.set('n', '<leader>f', '<cmd>Neotree<CR>', { desc = 'Open Neotree' })
+vim.keymap.set('n', '<leader>f', '<cmd>Explore<CR>', { desc = 'Open Neotree' })
 vim.keymap.set("n", '<leader>c',function()
   vim.cmd("Tex")
   vim.cmd("wincmd r")
@@ -52,7 +52,7 @@ vim.keymap.set('n', '<leader>t', function()
   end
   vim.cmd('startinsert')
 end, { desc = 'Open terminal in vertical split' })
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>:q<CR>]], { desc = 'Exit terminal mode' })
 vim.keymap.set('n', '<C-l>', '<cmd>tabnext +<CR>', { desc = 'Switch next tab' })
 vim.keymap.set('n', '<C-h>', '<cmd>tabnext -<CR>', { desc = 'Switch prev tab' })
 vim.keymap.set('n', '<C-A-h>', '<cmd>tabmove -1<CR>', { desc = 'Move current tab left' })
