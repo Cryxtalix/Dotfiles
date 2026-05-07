@@ -48,3 +48,4 @@ alias v="nvim";
 alias vro="nvim -RM" # Neovim read-only
 alias nv-watch="watch -n1 nvidia-smi";
 alias clear-swap="rm -r ~/.local/share/nvim/swap/*";
+alias xclipb="xclip -selection clipboard";

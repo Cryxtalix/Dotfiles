@@ -1,0 +1,84 @@
+-----------
+-- Basic --
+-----------
+vim.g.mapleader = " "
+vim.opt.mouse = ''
+vim.opt.wrap = true
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.laststatus = 2
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+-- Directory for swap files
+vim.opt.directory = vim.fn.expand("~/.local/share/nvim/swap//")
+-- Search into subfolders
+-- Provides tab completion for file related tasks
+vim.opt.path:append '**'
+-- Display all matching files when we tab complete
+vim.opt.wildmenu = true
+vim.cmd("filetype plugin on")
+vim.api.nvim_set_keymap('v', '<C-c>', '"+y', { noremap = true, silent = true })
+
+------------------------------------
+-- Native Neovim tabs and windows --
+------------------------------------
+vim.keymap.set('n', '<leader>f', '<cmd>Explore<CR>', { desc = 'Open Neotree' })
+vim.keymap.set("n", '<leader>c',function()
+  vim.cmd("Tex")
+  vim.cmd("wincmd r")
+end, { desc = "Open tab"})
+vim.keymap.set("n", '<leader>v', function()
+  vim.cmd("Vex")
+  vim.cmd("wincmd x")
+  vim.cmd("wincmd l")
+  vim.cmd("enew")
+end, { desc = "Open vertical split" })
+vim.keymap.set("n", '<leader>h', function()
+  vim.cmd("Sex")
+  vim.cmd("wincmd x")
+  vim.cmd("wincmd j")
+end, { desc = "Open horizontal split" })
+-- Open terminal
+local term_buf = nil
+vim.keymap.set('n', '<leader>t', function()
+  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
+    -- Reuse existing terminal
+    vim.cmd('rightbelow vsplit')
+    vim.cmd('buffer ' .. term_buf)
+  else
+    -- Create a new terminal
+    vim.cmd('rightbelow vsplit | terminal')
+    term_buf = vim.api.nvim_get_current_buf()
+  end
+  vim.cmd('startinsert')
+end, { desc = 'Open terminal in vertical split' })
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>:q<CR>]], { desc = 'Exit terminal mode' })
+vim.keymap.set('n', '<C-l>', '<cmd>tabnext +<CR>', { desc = 'Switch next tab' })
+vim.keymap.set('n', '<C-h>', '<cmd>tabnext -<CR>', { desc = 'Switch prev tab' })
+vim.keymap.set('n', '<C-A-h>', '<cmd>tabmove -1<CR>', { desc = 'Move current tab left' })
+vim.keymap.set('n', '<C-A-l>', '<cmd>tabmove +1<CR>', { desc = 'Move current tab right' })
+vim.keymap.set('n', '<A-k>', '<cmd>wincmd k<CR>', { desc = 'Move cursor to window above' })
+vim.keymap.set('n', '<A-j>', '<cmd>wincmd j<CR>', { desc = 'Move cursor to window below' })
+vim.keymap.set('n', '<A-h>', '<cmd>wincmd h<CR>', { desc = 'Move cursor to window left' })
+vim.keymap.set('n', '<A-l>', '<cmd>wincmd l<CR>', { desc = 'Move cursor to window right' })
+--------------------------------------------
+
+-----------------
+-- Diagnostics --
+-----------------
+vim.diagnostic.config({
+  virtual_text = false,  -- Disable inline text diagnostics
+  signs = true,          -- Keep signs in the sign column
+  update_in_insert = false,
+  underline = true,
+  severity_sort = true,
+})
+
+-- Show diagnostics on hover
+vim.o.updatetime = 250 -- Faster update time for hover
+vim.api.nvim_create_autocmd("CursorHold", {
+  pattern = "*",
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+  end,
+})
